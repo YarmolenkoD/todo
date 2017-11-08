@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Todolist</title>
+    <link href="//cdn.muicss.com/mui-0.9.28/css/mui.min.css" rel="stylesheet" type="text/css">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="./css/main.css" rel="stylesheet" type="text/css">
+    <script src="//cdn.muicss.com/mui-0.9.28/js/mui.min.js"></script>
+</head>
+<body>
+<section class="todo-section">
+    <div class="mui-container">
+        <div class="mui-panel input-panel">
+            <form onsubmit="addTodo(event)" class="mui-form--inline todo-form">
+                <input type="text" placeholder="Please input todo" class="todo-input" id="input">
+                <button type="submit" class="mui-btn mui-btn--accent add-btn">ADD</button>
+            </form>
+        </div>
+        <div class="mui-panel todos-panel">
+            <div class="mui-panel todo-wrap-panel">
+                <ul class="todo-wrap" id="todo-wrap"></ul>
+            </div>
+            <div class="mui-panel todo-menu-panel">
+                <div class="menu-wrap">
+                    <div>
+                        <button class="mui-btn mui-btn--accent all-btn" onclick="allTodo()">All</button>
+                        <button class="mui-btn mui-btn--accent active-btn" onclick="activeTodo()">Active</button>
+                        <button class="mui-btn mui-btn--accent done-btn" onclick="doneTodo()">Done</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="./index.js"></script>
+</body>
+</html>
