@@ -8,6 +8,14 @@ ul, li {
     list-style-type: none;
 }
 
+
+.router {
+    display: block;
+    text-align: center;
+    font-size: 50px;
+    color: #e91e63;
+}
+
 .todo-form {
     width: 100%;
     position: relative;
@@ -53,18 +61,32 @@ ul, li {
     background: #ff4081;
 }
 
+.all-btn.active {
+    background: #880e4f;
+}
+
 .active-btn {
     background: #e91e63;
 }
+
 .active-btn:hover {
     background: #e91e63;
+}
+
+.active-btn.active {
+    background: #880e4f;
 }
 
 .done-btn {
     background: #c51162;
 }
+
 .done-btn:hover {
     background: #c51162;
+}
+
+.done-btn.active {
+    background: #880e4f;
 }
 
 .input-panel, .todos-panel {

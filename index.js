@@ -1,26 +1,20 @@
 var todoWrap = document.getElementById('todo-wrap')
 var input = document.getElementById('input')
+var routerText = document.getElementById('router')
 var router = 'all'
-var todoArray = [
-  {
-    value: 'todo item',
-    isDone: false
-  },
-  {
-    value: 'todo item2',
-    isDone: false
-  },
-  {
-    value: 'todo item3',
-    isDone: false
-  },
-  {
-    value: 'todo item4',
-    isDone: true
-  }
-]
+var todoArray = []
 
 updateTodo()
+
+function routerFunc (arr) {
+  if (router === 'all') {
+    routerText.innerText = 'All todo: ' + arr.length
+  } else if (router === 'active') {
+    routerText.innerText = 'Active todo: ' + arr.length
+  } else {
+    routerText.innerText = 'Done todo: ' + arr.length
+  }
+}
 
 function updateTodo (array) {
   array = array || todoArray
@@ -33,8 +27,10 @@ function updateTodo (array) {
     var doneBtn = document.createElement('span')
     delBtn.className = 'delBtn fa fa-trash-o'
     delBtn.id = 'del'
+    delBtn.dataset.id = el.id
     doneBtn.className = 'doneBtn fa fa-check'
     doneBtn.id = 'done'
+    doneBtn.dataset.id = el.id
     itemBtnWrap.classList.add('item-btn-wrap')
     itemBtnWrap.appendChild(delBtn)
     itemBtnWrap.appendChild(doneBtn)
@@ -51,14 +47,27 @@ function updateTodo (array) {
     }
     todoWrap.appendChild(newTodoItem)
   })
+  routerFunc(array)
 }
 
 todoWrap.addEventListener('click', function (e) {
+  var index
   if (e.target.id === 'done') {
-    todoArray[e.target.parentNode.parentNode.id].isDone = !todoArray[e.target.parentNode.parentNode.id].isDone
+    todoArray.forEach(function (el, i) {
+      if (el.id === parseFloat(e.target.dataset.id)) {
+        index = i
+      }
+    })
+    console.log(index, e.target.dataset.id)
+    todoArray[parseFloat(index)].isDone = !todoArray[parseFloat(index)].isDone
   }
   if (e.target.id === 'del') {
-    todoArray.splice(e.target.parentNode.parentNode.id, 1)
+    todoArray.forEach(function (el, i) {
+      if (el.id === parseFloat(e.target.dataset.id)) {
+        index = i
+      }
+    })
+    todoArray.splice(parseFloat(index), 1)
   }
   switch (router) {
     case 'all':
@@ -74,15 +83,27 @@ todoWrap.addEventListener('click', function (e) {
 }, false)
 
 function addTodo (event) {
-  event.preventDefault()
-  var newTodo = {
-    id: todoArray.length,
-    value: input.value,
-    isDone: false
+  if (input.value.length !== 0) {
+    event.preventDefault()
+    var newTodo = {
+      id: todoArray.length,
+      value: input.value,
+      isDone: false
+    }
+    todoArray.push(newTodo)
+    input.value = ''
+    switch (router) {
+      case 'all':
+        updateTodo()
+        break;
+      case 'active':
+        activeTodo()
+        break;
+      case 'done':
+        doneTodo()
+        break;
+    }
   }
-  todoArray.push(newTodo)
-  input.value = ''
-  updateTodo()
 }
 
 function doneTodo () {
